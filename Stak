@@ -1,0 +1,67 @@
+#include <iostream>
+using namespace std;
+const int n = 10;
+
+class stack
+{
+private:
+	int arr[n];
+	int top = -1;
+public:
+	bool isEmpty()
+	{
+		return top == -1;
+	}
+	bool isFull()
+	{
+		return top == n - 1;
+	}
+	void push(int value)
+	{
+		if (isFull())
+		{
+			return;
+		}
+		else
+		{
+			top++;
+			arr[top] = value;
+		}
+	}
+	void Pop()
+	{
+		if (isEmpty())
+		{
+			return;
+		}
+		else
+		{
+			top--;
+		}
+	}
+	int GetTop()
+	{
+		if (isEmpty())
+		{
+			return -1;
+		}
+		else
+		{
+			return arr[top];
+		}
+	}
+};
+
+int main()
+{
+	stack stk;
+	stk.push(9);
+	stk.push(0);
+	stk.push(1);
+	stk.push(7);
+	while (!stk.isEmpty())
+	{
+		cout << stk.GetTop() << " ";
+		stk.Pop();
+	}
+}
