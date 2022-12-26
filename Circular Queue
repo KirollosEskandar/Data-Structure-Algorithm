@@ -1,0 +1,86 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+const int n = 10;
+
+class Queue
+{
+private:
+	int arr[n];
+	int front = 0;
+	int tail = n - 1;
+	int count = 0;
+public:
+	bool isEmpty()
+	{
+		if (count == 0)
+		{
+			cout << "\nQueue is Empty.." << endl;
+			return true;
+		}
+		else
+		{
+			//cout << "Queue isn't Empty..";
+			return false;
+		}
+	}
+	bool isFull()
+	{
+		if (count == n)
+		{
+			cout << "Queue is Full.";
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	void EnQueue(int value)
+	{
+		if (isFull())
+		{
+			return;
+		}
+		else
+		{
+			tail = (tail + 1) % n;
+		}
+		count++;
+		arr[tail] = value;
+	}
+	void DeQueue()
+	{
+		if (isEmpty())
+		{
+			return;
+		}
+		else
+		{
+			front = (front + 1) % n;
+		}
+		count--;
+	}
+	int GetFront()
+	{
+		return arr[front];
+	}
+};
+int main()
+{
+	Queue qu;
+	qu.EnQueue(0);
+	qu.EnQueue(2);
+	qu.EnQueue(5);
+	qu.EnQueue(8);
+	qu.EnQueue(7);
+	qu.EnQueue(7);
+	qu.EnQueue(7);
+	qu.EnQueue(7);
+	qu.EnQueue(7);
+	while (!qu.isEmpty())
+	{
+		cout << qu.GetFront() << " ";
+		qu.DeQueue();
+	}
+}
