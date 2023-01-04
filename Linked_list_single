@@ -1,0 +1,125 @@
+#include <iostream>
+using namespace std;
+class Linked_list
+{
+private:
+	struct Node
+	{
+		int Value;
+		Node* Next;
+	};
+	Node* head = NULL;
+public:
+	void Append(int value)
+	{
+		Node* NewNode = new Node;
+		NewNode->Next = NULL;
+		NewNode->Value = value;
+		if (head == NULL)
+		{
+			head = NewNode;
+		}
+		else
+		{
+			Node* Temp = head;
+			while (Temp->Next != NULL)
+			{
+				Temp = Temp->Next;
+			}
+			Temp->Next = NewNode;
+		}
+	}
+	void display()
+	{
+		Node *temp = head;
+		if (head == NULL)
+		{
+			cout << "Your Linked List is Empty..\n";
+		}
+		else
+		{
+			while (temp != NULL)
+			{
+				cout << temp->Value << " ";
+				temp = temp->Next;
+			}
+		}
+	}
+	void delete_Node(int value)
+	{
+		Node* temp = head;
+		if (head->Value == value)
+		{
+			head = head->Next;
+			delete temp;
+		}
+		else
+		{
+			Node* pre = head;
+			while (temp->Next != NULL && temp->Value != value)
+			{
+				pre = temp;
+				temp = temp->Next;
+			}
+			if (temp->Next != NULL)
+			{
+				cout << "Yes..\n";
+				pre->Next = temp->Next;
+				delete temp;
+			}
+		}
+	}
+	void inser_begining(int v)
+	{
+		Node* newNode = new Node;
+		newNode->Value = v;
+		newNode->Next = head;
+		head = newNode;
+	}
+	void delete_begining()
+	{
+		if (head == NULL)
+		{
+			return;
+		}
+		else
+		{
+			Node* temp = head;
+			head = head->Next;
+			delete temp;
+		}
+	}
+	void delete_end()
+	{
+		
+		if (head == NULL)
+		{
+			return;
+		}
+		else if (head->Next == NULL)
+		{
+			delete head;
+			head = NULL;
+		}
+		else
+		{
+			Node* temp = head;
+			while (temp->Next->Next != NULL)
+			{
+				temp = temp->Next;
+			}
+			delete temp->Next;
+			temp->Next = NULL;
+		}
+	}
+};
+
+int main()
+{
+	Linked_list l;
+	l.Append(3);
+	l.Append(5);
+	l.Append(4);
+	l.delete_end();
+	l.display();
+}
