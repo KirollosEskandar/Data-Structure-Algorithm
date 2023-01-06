@@ -1,0 +1,136 @@
+#include<iostream>
+using namespace std;
+class Doubly_linked
+{
+private:
+	struct Node
+	{
+		int date;
+		Node* next;
+		Node* pre;
+		Node()
+		{
+			next = NULL;
+			pre = NULL;
+		}
+	};
+	Node* Head = NULL;
+public:
+	void append(int v)
+	{
+		Node* newNode = new Node;
+		newNode->date = v;
+		if (Head == NULL)
+		{
+			Head = newNode;
+		}
+		else
+		{
+			Node* Temp = Head;
+			while (Temp->next != NULL)
+			{
+				Temp = Temp->next;
+			}
+			newNode->pre = Temp;
+			Temp->next = newNode;
+		}
+	}
+	void remove(int v)
+	{
+		if (Head == NULL)
+		{
+			return;
+		}
+		else if (Head->date == v)
+		{
+			Head = Head->next;
+			delete Head->pre;
+			Head->pre = NULL;
+		}
+		else
+		{
+			Node* Temp = Head;
+			while (Temp->date != v)
+			{
+				Temp = Temp->next;
+				if (Temp == NULL)
+				{
+					cout << "I'm not Found value..."
+						<< endl;
+					return;
+				}
+			}
+			if (Temp->next == NULL)
+			{
+				Temp->pre->next = NULL;
+				delete Temp;
+			}
+			else if (Temp != NULL)
+			{
+				Temp->pre->next = Temp->next;
+				Temp->next->pre = Temp->pre;
+				delete Temp;
+			}
+		}
+	}
+	void remove_at_pos(int pos)
+	{
+		if (Head == NULL)
+		{
+			return;
+		}
+		else if (pos == 1)
+		{
+			Head = Head->next;
+			delete Head->pre;
+			Head->pre = NULL;
+		}
+		else
+		{
+			Node* Temp = Head;
+			while (pos > 1) // 5
+			{
+				if (Temp == NULL)
+				{
+					cout << "I'm Not Found value.." << endl;
+					return;
+				}
+				Temp = Temp->next;
+				pos--;
+			}
+			if (Temp == NULL)
+			{
+				cout << "I'm Not Found value.." << endl;
+				return;
+			}
+			this->remove(Temp->date);
+		}
+	}
+	void Display()
+	{
+		if (Head == NULL)
+		{
+			return;
+		}
+		else
+		{
+			Node* Temp = Head;
+			while (Temp != NULL)
+			{
+				cout << Temp->date << " ";
+				Temp = Temp->next;
+			}
+		}
+	}
+};
+int main()
+{
+	Doubly_linked list;
+	list.append(8);
+	list.append(7);
+	list.append(4);
+	list.append(3);
+	list.remove_at_pos(5);
+	list.Display();
+
+}
