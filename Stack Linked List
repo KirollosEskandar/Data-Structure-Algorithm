@@ -1,0 +1,87 @@
+#include <iostream>
+using namespace std;
+class Stack
+{
+private:
+	struct Node
+	{
+		int data;
+		Node* next;
+		Node()
+		{
+			next = NULL;
+		}
+	};
+	Node* Head = NULL;
+public:
+	bool isEmpty()
+	{
+		return Head == NULL;
+	}
+	void push(int v)
+	{
+		Node* newNode = new Node;
+		newNode->data = v;
+		if (isEmpty())
+		{
+			Head = newNode;
+		}
+		else
+		{
+			Node* Temp = Head;
+			while (Temp->next != NULL)
+			{
+				Temp = Temp->next;
+			}
+			Temp->next = newNode;
+		}
+	}
+	void pop()
+	{
+		if (isEmpty())
+		{
+			return;
+		}
+		else if (Head->next == NULL)
+		{
+			delete Head;
+			Head = NULL;
+		}
+		else
+		{
+			Node* Temp = Head;
+			while (Temp->next->next != NULL)
+			{
+				Temp = Temp->next;
+			}
+			delete Temp->next;
+			Temp->next = NULL;
+		}
+	}
+	void Top()
+	{
+		if (isEmpty())
+		{
+			return;
+		}
+		else
+		{
+			Node* Temp = Head;
+			while (Temp->next != NULL)
+			{
+				Temp = Temp->next;
+			}
+			cout << Temp->data << " ";
+		}
+	}
+};
+int main()
+{
+	Stack stk;
+	stk.push(0);
+	stk.push(5);
+	stk.pop();
+	stk.pop();
+	stk.push(4);
+	stk.Top();
+}
