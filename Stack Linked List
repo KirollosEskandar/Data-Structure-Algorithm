@@ -28,12 +28,8 @@ public:
 		}
 		else
 		{
-			Node* Temp = Head;
-			while (Temp->next != NULL)
-			{
-				Temp = Temp->next;
-			}
-			Temp->next = newNode;
+			newNode->next = Head;
+			Head = newNode;
 		}
 	}
 	void pop()
@@ -42,20 +38,11 @@ public:
 		{
 			return;
 		}
-		else if (Head->next == NULL)
-		{
-			delete Head;
-			Head = NULL;
-		}
 		else
 		{
-			Node* Temp = Head;
-			while (Temp->next->next != NULL)
-			{
-				Temp = Temp->next;
-			}
-			delete Temp->next;
-			Temp->next = NULL;
+			Node *Temp = Head;
+			Head = Head->next;
+			delete Temp;
 		}
 	}
 	void Top()
@@ -66,12 +53,7 @@ public:
 		}
 		else
 		{
-			Node* Temp = Head;
-			while (Temp->next != NULL)
-			{
-				Temp = Temp->next;
-			}
-			cout << Temp->data << " ";
+			cout << Head->data << " ";
 		}
 	}
 };
@@ -79,9 +61,12 @@ int main()
 {
 	Stack stk;
 	stk.push(0);
-	stk.push(5);
-	stk.pop();
-	stk.pop();
+	stk.push(1);
+	stk.push(7);
 	stk.push(4);
-	stk.Top();
+	while (!stk.isEmpty())
+	{
+		stk.Top();
+		stk.pop();
+	}
 }
