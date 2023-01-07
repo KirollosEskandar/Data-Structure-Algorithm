@@ -1,0 +1,80 @@
+#include <iostream>
+using namespace std;
+class Queue
+{
+private:
+	struct Node
+	{
+		int data;
+		Node* next;
+		Node()
+		{
+			next = NULL;
+		}
+	};
+	Node* Head = NULL;
+	Node* Tail = NULL;
+public:
+	bool isEmpty()
+	{
+		return Head == NULL && Tail == NULL;
+	}
+	void EnQueue(int v)
+	{
+		Node* newNode = new Node;
+		newNode->data = v;
+		if (isEmpty())
+		{
+			Head = Tail = newNode;
+		}
+		else
+		{
+			Tail->next = newNode;
+			Tail = newNode;
+		}
+	}
+	void DeQueue()
+	{
+		if (isEmpty())
+		{
+			return;
+		}
+		else
+		{
+			if (Head->next == NULL)
+			{
+				delete Head;
+				Head = Tail = NULL;
+			}
+			else
+			{
+				Node* Temp = Head;
+				Head = Head->next;
+				delete Temp;
+			}
+		}
+	}
+	void Top()
+	{
+		if (isEmpty())
+		{
+			return;
+		}
+		else
+		{
+			cout << Head->data << " ";
+		}
+	}
+};
+int main()
+{
+	Queue qu;
+	qu.EnQueue(9);
+	qu.EnQueue(8);
+	qu.EnQueue(7);
+	while (!qu.isEmpty())
+	{
+		qu.Top();
+		qu.DeQueue();
+	}
+}
