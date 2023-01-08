@@ -100,7 +100,7 @@ public:
 
 int main()
 {
-	Doubly_test d;
+	Doubly_linked d;
 	d.append(6);
 	d.append(4);
 	d.append(62);
