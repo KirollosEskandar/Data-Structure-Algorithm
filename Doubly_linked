@@ -1,5 +1,3 @@
-#include<iostream>
-using namespace std;
 class Doubly_linked
 {
 private:
@@ -26,49 +24,40 @@ public:
 		}
 		else
 		{
-			Node* Temp = Head;
-			while (Temp->next != NULL)
+			Node* temp = Head;
+			while (temp->next != NULL)
 			{
-				Temp = Temp->next;
+				temp = temp->next;
 			}
-			newNode->pre = Temp;
-			Temp->next = newNode;
+			newNode->pre = temp;
+			temp->next = newNode;
 		}
-	}
+	};
 	void remove(int v)
 	{
+		Node* Temp = Head;
 		if (Head == NULL)
 		{
 			return;
 		}
-		else if (Head->date == v)
+		else if (Temp->date == v)
 		{
 			Head = Head->next;
-			delete Head->pre;
-			Head->pre = NULL;
+			if(Head != NULL)
+				Head->pre = NULL;
+			delete Temp;
 		}
 		else
 		{
-			Node* Temp = Head;
-			while (Temp->date != v)
+			while (Temp != NULL && Temp->date != v)
 			{
 				Temp = Temp->next;
-				if (Temp == NULL)
-				{
-					cout << "I'm not Found value..."
-						<< endl;
-					return;
-				}
 			}
-			if (Temp->next == NULL)
-			{
-				Temp->pre->next = NULL;
-				delete Temp;
-			}
-			else if (Temp != NULL)
+			if (Temp != NULL)
 			{
 				Temp->pre->next = Temp->next;
-				Temp->next->pre = Temp->pre;
+				if (Temp->next != NULL)
+					Temp->next->pre = Temp->pre;
 				delete Temp;
 			}
 		}
@@ -79,32 +68,17 @@ public:
 		{
 			return;
 		}
-		else if (pos == 1)
+		Node* Temp = Head;
+		for (int i = 1; i < pos; i++)
 		{
-			Head = Head->next;
-			delete Head->pre;
-			Head->pre = NULL;
-		}
-		else
-		{
-			Node* Temp = Head;
-			while (pos > 1) // 5
-			{
-				if (Temp == NULL)
-				{
-					cout << "I'm Not Found value.." << endl;
-					return;
-				}
-				Temp = Temp->next;
-				pos--;
-			}
 			if (Temp == NULL)
 			{
-				cout << "I'm Not Found value.." << endl;
 				return;
 			}
-			this->remove(Temp->date);
+			Temp = Temp->next;
 		}
+		if(Temp != NULL && pos > 0)
+			remove(Temp->date);
 	}
 	void Display()
 	{
@@ -114,23 +88,22 @@ public:
 		}
 		else
 		{
-			Node* Temp = Head;
-			while (Temp != NULL)
+			Node* temp = Head;
+			while (temp != NULL)
 			{
-				cout << Temp->date << " ";
-				Temp = Temp->next;
+				cout << temp->date << " ";
+				temp = temp->next;
 			}
 		}
 	}
 };
+
 int main()
 {
-	Doubly_linked list;
-	list.append(8);
-	list.append(7);
-	list.append(4);
-	list.append(3);
-	list.remove_at_pos(5);
-	list.Display();
-
+	Doubly_test d;
+	d.append(6);
+	d.append(4);
+	d.append(62);
+	d.remove_at_pos(0);
+	d.Display();
 }
