@@ -1,0 +1,132 @@
+#include <iostream>
+#include <queue>
+using namespace std;
+
+
+class BST
+{
+private:
+	struct Node
+	{
+		int data;
+		Node *left;
+		Node* right;
+		Node()
+		{
+			left = NULL;
+			right = NULL;
+		}
+	};
+	Node* root = NULL;
+	void PreOrder(Node* temp)
+	{
+		if (temp == NULL)
+			return;
+		cout << temp->data << " ";
+		PreOrder(temp->left);
+		PreOrder(temp->right);
+	}
+public:
+	void add(int value)
+	{
+		Node* newNode = new Node;
+		newNode->data = value;
+		if (root == NULL)
+		{
+			root = newNode;
+		}
+		else
+		{
+			Node* Temp = root;
+			Node* parent = NULL;
+			while (Temp != NULL)
+			{
+				parent = Temp;
+				if (value <= Temp->data)
+				{
+					Temp = Temp->left;
+				}
+				else
+				{
+					Temp = Temp->right;
+				}
+
+			}
+			if (value <= parent->data)
+			{
+				parent->left = newNode;
+			}
+			else
+			{
+				parent->right = newNode;
+			}
+		}
+	}
+	void Max()
+	{
+		if (root == NULL)
+		{
+			return;
+		}
+		else
+		{
+			Node* Temp = root;
+			while (Temp->right != NULL)
+			{
+				Temp = Temp->right;
+			}
+			cout << "I'm Max : " << Temp->data << endl;
+		}
+	}
+	void Min()
+	{
+		if (root == NULL)
+		{
+			return;
+		}
+		else
+		{
+			Node* Temp = root;
+			while (Temp->left != NULL)
+			{
+				Temp = Temp->left;
+			}
+			cout << "I'm Min " << Temp->data << endl;
+		}
+	}
+	void display_Level_Order()
+	{
+		if (root == NULL) return;
+		queue<Node*> qu;
+		qu.push(root);
+		Node *curr;
+		while (!qu.empty())
+		{
+			curr = qu.front();
+			cout << curr->data << " ";
+			qu.pop();
+			if(curr->left != NULL) qu.push(curr->left);
+			if(curr->right != NULL) qu.push(curr->right);
+		}
+		cout << endl;
+	}
+	void display_pre()
+	{
+		if (root == NULL)
+			return;
+		PreOrder(root);
+		cout << endl;
+	}
+
+
+};
+int main()
+{
+	BST b;
+	b.add(8);
+	b.add(7);
+	b.add(10);
+	b.add(1);
+	b.display_Level_Order();
+	b.display_pre();
+}
