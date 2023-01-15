@@ -1,0 +1,123 @@
+#include <iostream>
+using namespace std;
+
+class DSL
+{
+private:
+	struct Node
+	{
+		int key;
+		char data;
+		Node* pre;
+		Node* next;
+		Node()
+		{
+			pre = NULL;
+			next = NULL;
+		}
+	};
+	Node* Head = NULL;
+public:
+	void insert(int k, char d)
+	{
+		Node* newNode = new Node;
+		newNode->data = d;
+		newNode->key = k;
+		if (Head == NULL)
+		{
+			Head = newNode;
+		}
+		else
+		{
+			Node* temp = Head;
+			while (temp->key < k)
+			{
+				if (temp->next == NULL)
+				{
+					temp->next = newNode;
+					newNode->pre = temp;
+					return;
+				}
+				temp = temp->next;
+			}
+			if (temp->pre != NULL)
+			{
+				newNode->pre = temp->pre;
+				newNode->next = temp;
+				temp->pre->next = newNode;
+				temp->pre = newNode;
+			}
+			else
+			{
+				newNode->next = temp;
+				temp->pre = newNode;
+				Head = newNode;
+			}
+		}
+	}
+	void del(int k)
+	{
+		if (Head == NULL)
+		{
+			return;
+		}
+		else if (Head->key == k)
+		{
+			if (Head->next != NULL)
+			{
+				Head = Head->next;
+				delete Head->pre;
+				Head->pre = NULL;
+			}
+			else
+			{
+				delete Head;
+				Head = NULL;
+			}
+		}
+		else
+		{
+			Node* Temp = Head;
+			while (Temp != NULL && Temp->key != k)
+			{
+				Temp = Temp->next;
+			}
+			if (Temp == NULL)
+			{
+				return;
+			}
+			else if (Temp->next != NULL)
+			{
+				Temp->pre->next = Temp->next;
+				Temp->next->pre = Temp->pre;
+			}
+			else
+			{
+				Temp->pre->next = NULL;
+			}
+			delete Temp;
+		}
+	}
+	void display()
+	{
+		if (Head == NULL) return;
+		else
+		{
+			Node* temp = Head;
+			while (temp != NULL)
+			{
+				cout << temp->data << " ";
+				temp = temp->next;
+			}
+		}
+	}
+};
+int main()
+{
+	DSL DS;
+	DS.insert(1,'C');
+	DS.insert(2, 'F');
+	DS.insert(3, 'r');
+	DS.del(4);
+	DS.display();
+}
