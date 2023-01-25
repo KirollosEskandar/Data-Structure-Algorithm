@@ -1,3 +1,6 @@
+#include<iostream>
+#include<vector>
+#include <string>
 #include <iostream>
 using namespace std;
 class Stack
@@ -7,66 +10,52 @@ private:
 	{
 		int data;
 		Node* next;
-		Node()
-		{
-			next = NULL;
-		}
 	};
-	Node* Head = NULL;
+	Node* Top = NULL;
 public:
 	bool isEmpty()
 	{
-		return Head == NULL;
+		return Top == NULL;
 	}
-	void push(int v)
+	int Peek()
+	{
+		if (!isEmpty())
+			return Top->data;
+	}
+	void Push(int val)
 	{
 		Node* newNode = new Node;
-		newNode->data = v;
+		newNode->data = val;
 		if (isEmpty())
 		{
-			Head = newNode;
+			newNode->next = NULL;
+			Top = newNode;
 		}
 		else
 		{
-			newNode->next = Head;
-			Head = newNode;
+			newNode->next = Top;
+			Top = newNode;
 		}
 	}
-	void pop()
+	void Pop()
 	{
-		if (isEmpty())
+		if (!isEmpty())
 		{
-			return;
-		}
-		else
-		{
-			Node *Temp = Head;
-			Head = Head->next;
-			delete Temp;
-		}
-	}
-	void Top()
-	{
-		if (isEmpty())
-		{
-			return;
-		}
-		else
-		{
-			cout << Head->data << " ";
+			Node* temp = Top;
+			Top = Top->next;
+			delete temp;
 		}
 	}
 };
 int main()
 {
 	Stack stk;
-	stk.push(0);
-	stk.push(1);
-	stk.push(7);
-	stk.push(4);
+	for (int i = 0; i < 9; i++)
+		stk.Push(i);
 	while (!stk.isEmpty())
 	{
-		stk.Top();
-		stk.pop();
+		cout << stk.Peek() << " ";
+		stk.Pop();
 	}
+	cout << endl;
 }
