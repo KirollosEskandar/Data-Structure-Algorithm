@@ -1,33 +1,37 @@
+#include<iostream>
+#include<vector>
+#include <string>
 #include <iostream>
 using namespace std;
-int arr[10] = { 5,5,6,8,9,1,2,3,0,1 };
-void swap(int &x, int &y)
+
+void swap(int& x, int &y)
 {
-	int temp = x;
-	x = y;
-	y = temp;
+    int t = x;
+    x = y;
+    y = t;
 }
-void sort_selection(int n)
+
+void Selection_Sort(int arr[], int size)
 {
-	for (int i = 0; i < n; i++)
-	{
-		for (int j = i + 1; j < n; j++)
-		{
-			if (arr[i] > arr[j])
-				swap(arr[i], arr[j]);
-		}
-	}
-}
-void print_array(int n)
-{
-	for (int i = 0; i < n; i++)
-	{
-		cout << arr[i] << " ";
-	}
+    //{ 15, 12, 13, 17, 1, 5, 8, 4 }
+    for (int i = 0; i < size; i++)
+    {
+        int ind = i;
+        for (int j = i+1; j < size; j++)
+        {
+            if (arr[ind] > arr[j])
+            {
+                ind = j;
+            }
+        }
+        if (i != ind)
+            swap(arr[i], arr[ind]);
+    }
 }
 int main()
 {
-	sort_selection(10);
-	print_array(10);
-
+    int arr[8] = { 15,12,13,17,1,5,8,4 };
+    Selection_Sort(arr, 8);
+    for (int i = 0; i < 8; i++)
+        cout << arr[i] << " ";
 }
